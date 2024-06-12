@@ -1,8 +1,10 @@
 import { Schema, model } from "mongoose";
 import { TUser } from "./user.interface";
+import config from "../../app/config";
+import bcrypt from 'bcrypt'
 
 
-const UserSchema = new Schema<TUser>({
+const userSchema = new Schema<TUser>({
     name:{
         type:String,
         required:[true,"Name is required"]
@@ -27,7 +29,17 @@ const UserSchema = new Schema<TUser>({
         type:String,
         required:[true,"Address is required"]
     }
+},{
+    timestamps:true
 })
 
+userSchema.pre('save',async function(next){
+    const user = this
+    user.password  = await bcrypt.hash(
+        user.password,
+        Number(config.bcrypt_salt_rounds)
+    )
+    next()
+})
 
-export const UserModel = model<TUser>('User',UserSchema)
+export const UserModel = model<TUser>('User',userSchema)
