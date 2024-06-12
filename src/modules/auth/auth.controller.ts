@@ -12,7 +12,7 @@ const userSignup=catchAsync(async(req,res)=>{
     const result = await AuthService.userSignupData(req.body)
     sendResponse(res,{
         success:true,
-        status:StatusCodes.OK,
+        statusCode:StatusCodes.OK,
         message:"User registered successfully",
         data:result
     })
@@ -24,7 +24,7 @@ const userLogin=catchAsync(async(req,res)=>{
     const {token,isUserExist} = result
     sendResponse(res,{
         success:true,
-        status:StatusCodes.OK,
+        statusCode:StatusCodes.OK,
         message:"User logged in successfully",
         token:token,
         data:isUserExist

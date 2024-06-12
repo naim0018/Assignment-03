@@ -10,7 +10,7 @@ import { AppError } from "../../app/errors/AppError";
 const getAllBooking= catchAsync(async(req,res)=>{
     const result = await BookingService.getAllBookingData()
     sendResponse(res,{
-       status:StatusCodes.OK,
+       statusCode:StatusCodes.OK,
        success:true,
        message:"Bookings retrieved successfully",
        data:result
@@ -19,7 +19,16 @@ const getAllBooking= catchAsync(async(req,res)=>{
 const getBookingByUser= catchAsync(async(req,res)=>{
     const result = await BookingService.getBookingDataByUser(req.params.user)
     sendResponse(res,{
-       status:StatusCodes.OK,
+       statusCode:StatusCodes.OK,
+       success:true,
+       message:"Bookings retrieved successfully",
+       data:result
+    })
+})
+const cancelBookingById= catchAsync(async(req,res)=>{
+    const result = await BookingService.cancelBookingDataById(req.params.id)
+    sendResponse(res,{
+       statusCode:StatusCodes.OK,
        success:true,
        message:"Bookings retrieved successfully",
        data:result
@@ -41,11 +50,11 @@ const createBooking= catchAsync(async(req,res)=>{
 
     isBooked = 'confirmed'
     payableAmount = amount?.pricePerHour as number * duration
-    
+
 
     const result = await BookingService.createBookingData(req.body)
     sendResponse(res,{
-       status:StatusCodes.OK,
+       statusCode:StatusCodes.OK,
        success:true,
        message:"Bookings created successfully",
        data:result
@@ -56,5 +65,6 @@ export const BookingController ={
     getAllBooking,
     getBookingByUser,
     createBooking,
+    cancelBookingById
 
 }
