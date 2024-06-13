@@ -26,4 +26,18 @@ const facilitySchema = new Schema<TFacility>({
     versionKey: false
 })
 
+
+facilitySchema.pre('find',function(next){
+    this.find({isDeleted : {$ne:true}})
+      next()   
+})
+facilitySchema.pre('findOne',function(next){
+    this.find({isDeleted: {$ne:true}})
+      next()   
+})
+facilitySchema.pre('findOneAndUpdate',function(next){
+    this.find({isDeleted: {$ne:true}})
+      next()   
+})
+
 export const FacilityModel = model<TFacility>('Facility',facilitySchema)

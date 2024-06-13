@@ -4,11 +4,8 @@ import { sendResponse } from "../../app/utils/sendResponse"
 import { TUser } from "../user/user.interface"
 import { AuthService } from "./auth.service"
 
-
+//create user/admin controller
 const userSignup=catchAsync(async(req,res)=>{
-    
-    
-    console.log(req.body)
     const result = await AuthService.userSignupData(req.body)
     sendResponse(res,{
         success:true,
@@ -18,6 +15,7 @@ const userSignup=catchAsync(async(req,res)=>{
     })
 
 })
+//login user/admin controller
 const userLogin=catchAsync(async(req,res)=>{
  
     const result = await AuthService.userLoginData(req.body)

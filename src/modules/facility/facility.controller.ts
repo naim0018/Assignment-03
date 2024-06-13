@@ -2,6 +2,7 @@ import { StatusCodes } from "http-status-codes"
 import { catchAsync } from "../../app/utils/catchAsync"
 import { sendResponse } from "../../app/utils/sendResponse"
 import { FacilityService } from "./facility.service"
+import { AppError } from "../../app/errors/AppError"
 
 const getAllFacility=catchAsync(async(req,res)=>{
     const result= await FacilityService.getAllFacilityData()

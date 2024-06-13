@@ -3,6 +3,11 @@ import { TBooking } from "./booking.interface";
 
 
 const bookingSchema = new Schema<TBooking>({
+    facility:{
+        type:Schema.Types.ObjectId,
+        ref:'Facility',
+        required:[true,"Facility is required"]
+    },
     date:{
         type:String,
         required:[true,"Date is required"]
@@ -16,24 +21,28 @@ const bookingSchema = new Schema<TBooking>({
         required:[true,"End time is required"]
     },
     user:{
-        type:String,
-        required:[true,"User is required"]
-    },
-    facility:{
         type:Schema.Types.ObjectId,
-        ref:'Facility'
+        ref:"User",
+        required:[true,"User is required"]
     },
     payableAmount:{
         type:Number,
-        required:[true,"Payable amount is required"]
+        required: [true, "Payable amount is required"]
+        
     },
     isBooked:{
         type:String,
         enum:['confirmed','unconfirmed','canceled'],
-        required:[true,"isBooked is required"]
+        required: [true, "isBooked is required"]
+       
     },
-},{
-    timestamps:true
 })
+
+bookingSchema.pre('save',async function(){
+    const isBookingExist = await BookingModel.find({isBooked:'cancelled'})
+
+})
+
+
 
 export const BookingModel = model<TBooking>('Booking',bookingSchema)

@@ -9,6 +9,7 @@ import { TUserRole } from "../../modules/auth/auth.interface";
 const auth = (...role:TUserRole[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const token = req.headers.authorization;
+    
     //Checking Token
     if (!token) {
       throw new AppError(
@@ -31,9 +32,9 @@ const auth = (...role:TUserRole[]) => {
                 StatusCodes.UNAUTHORIZED,
                 "You are not authorized user!"
               );
-        }
-
+        } 
         req.user = decoded as JwtPayload;
+        
         
         next();
       }

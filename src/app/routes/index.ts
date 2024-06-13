@@ -3,6 +3,7 @@ import { AuthRoute } from "../../modules/auth/auth.route";
 import { FacilityRoute } from "../../modules/facility/facility.route";
 import { BookingRoute } from "../../modules/booking/booking.route";
 import { UserRoute } from "../../modules/user/user.route";
+import { CheckAvailabilityRoute } from "../../modules/checkAvailability/check.route";
 
 
 const router= Router()
@@ -23,6 +24,10 @@ const moduleRoute =[
     {
         path:'/user',
         route:UserRoute
+    },
+    {
+        path:'/check-availability',
+        route:CheckAvailabilityRoute
     },
 ]
 
