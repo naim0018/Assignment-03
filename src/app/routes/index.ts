@@ -7,7 +7,7 @@ import { CheckAvailabilityRoute } from "../../modules/checkAvailability/check.ro
 
 
 const router= Router()
-
+//module route
 const moduleRoute =[
     {
         path:'/auth',

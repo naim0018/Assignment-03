@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+//checking time formate
 const timeStringSchema = z.string().refine(
     (time) => {
       const regex = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/; // 00-09 10-19 20-23
@@ -10,7 +11,7 @@ const timeStringSchema = z.string().refine(
     },
   );
   
-
+//creating booking validation
 const createBookingValidationSchema = z.object({
     facility:z.string(),
     date:z.string(),
@@ -27,7 +28,6 @@ const createBookingValidationSchema = z.object({
     return end > start;
   }, {
     message: 'End time must be after start time',
-    path: ['endTime'], // Specify the path of the error
   });
 
 

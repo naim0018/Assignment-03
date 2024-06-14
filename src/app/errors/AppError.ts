@@ -1,5 +1,5 @@
 
-
+//creating AppError for Error handling
 export class AppError extends Error{
     public statusCode:number;
     constructor (statusCode:number,message:string,stack=''){

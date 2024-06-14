@@ -28,8 +28,8 @@ const createBooking = catchAsync(async (req, res) => {
   //sending booking data to service 
   const result = await BookingService.createBookingData(booking);
   sendResponse(res, {
-    statusCode: StatusCodes.OK,
     success: true,
+    statusCode: StatusCodes.OK,
     message: "Booking created successfully",
     data: result,
   });
@@ -39,8 +39,8 @@ const getAllBooking = catchAsync(async (req, res) => {
   const result = await BookingService.getAllBookingData();
   const isEmptyResult = !result || Object.keys(result).length === 0;
   sendResponse(res, {
-    statusCode: isEmptyResult ? StatusCodes.NOT_FOUND : StatusCodes.OK ,
     success:isEmptyResult ? false : true,
+    statusCode: isEmptyResult ? StatusCodes.NOT_FOUND : StatusCodes.OK ,
     message:isEmptyResult ? "No data found" :"Bookings retrieved successfully",
     data: result,
   });
@@ -50,8 +50,8 @@ const getBookingByUser = catchAsync(async (req, res) => {
   const result = await BookingService.getBookingDataByUser(req.user.id);
   const isEmptyResult = !result || Object.keys(result).length === 0;
   sendResponse(res, {
-    statusCode: isEmptyResult ? StatusCodes.NOT_FOUND : StatusCodes.OK ,
     success: isEmptyResult ? false :true,
+    statusCode: isEmptyResult ? StatusCodes.NOT_FOUND : StatusCodes.OK ,
     message: isEmptyResult ? "No data found":"Bookings retrieved successfully",
     data: result,
   });
@@ -61,8 +61,8 @@ const cancelBookingById = catchAsync(async (req, res) => {
   const result = await BookingService.cancelBookingDataById(req.params.id);
 
   sendResponse(res, {
-    statusCode: StatusCodes.OK,
     success: true,
+    statusCode: StatusCodes.OK,
     message: "Bookings cancelled successfully",
     data: result,
   });

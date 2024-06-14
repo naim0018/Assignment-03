@@ -38,6 +38,7 @@ const updateFacility=catchAsync(async(req,res)=>{
         data:result
     })
 })
+//delete facility data 
 const deleteFacility=catchAsync(async(req,res)=>{
     const result= await FacilityService.deleteFacilityData(req.params.id)
     const isEmptyResult = !result || Object.keys(result).length === 0;

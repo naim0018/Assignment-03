@@ -26,18 +26,21 @@ const facilitySchema = new Schema<TFacility>({
     versionKey: false
 })
 
-
+//removing the deleted data
 facilitySchema.pre('find',function(next){
     this.find({isDeleted : {$ne:true}})
       next()   
 })
+//removing deleted data on findOne
 facilitySchema.pre('findOne',function(next){
     this.find({isDeleted: {$ne:true}})
       next()   
 })
+//removing deleted data from findOneAndUpdate operation
 facilitySchema.pre('findOneAndUpdate',function(next){
     this.find({isDeleted: {$ne:true}})
       next()   
 })
 
+//facilityModel
 export const FacilityModel = model<TFacility>('Facility',facilitySchema)

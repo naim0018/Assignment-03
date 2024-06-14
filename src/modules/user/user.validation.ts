@@ -1,5 +1,5 @@
 import { z } from "zod";
-
+//user validation
 const createUserSchema = z.object({
     name: z.string().nonempty("Name is required"),
     email: z.string().email("Invalid email format").nonempty("Email is required"),
