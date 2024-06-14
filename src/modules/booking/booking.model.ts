@@ -38,10 +38,6 @@ const bookingSchema = new Schema<TBooking>({
     },
 })
 
-bookingSchema.pre('save',async function(){
-    const isBookingExist = await BookingModel.find({isBooked:'cancelled'})
-
-})
 
 
 

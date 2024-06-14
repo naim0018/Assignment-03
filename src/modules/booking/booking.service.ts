@@ -3,18 +3,7 @@ import { AppError } from "../../app/errors/AppError";
 import { TBooking } from "./booking.interface";
 import { BookingModel } from "./booking.model";
 
-//get all booking data service
-const getAllBookingData = async () => {
-  const result = await BookingModel.find().populate("facility").populate("user");
- 
-  return result;
-};
-// get booking data by user service
-const getBookingDataByUser = async (id: string) => {
-  
-  const result = await BookingModel.findOne({ user: id }).populate("facility");
-  return result;
-};
+
 //create booking data service
 const createBookingData = async (payload: TBooking) => {
   const { date, startTime, endTime } = payload;
@@ -42,6 +31,17 @@ const createBookingData = async (payload: TBooking) => {
   const result = await BookingModel.create(payload);
   return result;
 
+};
+//get all booking data service
+const getAllBookingData = async () => {
+  const result = await BookingModel.find({isBooked:{$ne:'canceled'}}).populate("facility").populate("user");
+ 
+  return result;
+};
+// get booking data by user service
+const getBookingDataByUser = async (id: string) => {
+  const result = await BookingModel.findOne({ user: id }).populate("facility");
+  return result;
 };
 //cancel booking data by id service
 const cancelBookingDataById = async (id: string) => {

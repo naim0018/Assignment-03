@@ -16,6 +16,7 @@ const createBooking = catchAsync(async (req, res) => {
 //   calculating time 
   const start = new Date(`1970-01-01T${booking.startTime}:00`);
   const end = new Date(`1970-01-01T${booking.endTime}:00`);
+  console.log(start,end)
   const duration = (end.getTime() - start.getTime()) / (1000 * 60 * 60);
   if (duration <= 0) {
     throw new AppError(StatusCodes.BAD_REQUEST, "Invalid time");
@@ -39,7 +40,7 @@ const getAllBooking = catchAsync(async (req, res) => {
   const isEmptyResult = !result || Object.keys(result).length === 0;
   sendResponse(res, {
     statusCode: isEmptyResult ? StatusCodes.NOT_FOUND : StatusCodes.OK ,
-    success: true,
+    success:isEmptyResult ? false : true,
     message:isEmptyResult ? "No data found" :"Bookings retrieved successfully",
     data: result,
   });
@@ -50,7 +51,7 @@ const getBookingByUser = catchAsync(async (req, res) => {
   const isEmptyResult = !result || Object.keys(result).length === 0;
   sendResponse(res, {
     statusCode: isEmptyResult ? StatusCodes.NOT_FOUND : StatusCodes.OK ,
-    success: true,
+    success: isEmptyResult ? false :true,
     message: isEmptyResult ? "No data found":"Bookings retrieved successfully",
     data: result,
   });
@@ -58,6 +59,7 @@ const getBookingByUser = catchAsync(async (req, res) => {
 //cancel booking controller
 const cancelBookingById = catchAsync(async (req, res) => {
   const result = await BookingService.cancelBookingDataById(req.params.id);
+
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,

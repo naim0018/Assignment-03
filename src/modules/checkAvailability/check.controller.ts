@@ -1,8 +1,8 @@
 import { StatusCodes } from "http-status-codes";
 import { catchAsync } from "../../app/utils/catchAsync";
-import { checkAvailabilityData } from "./check.service";
+
 import { sendResponse } from "../../app/utils/sendResponse";
-import { TBooking } from "../booking/booking.interface";
+
 import { BookingModel } from "../booking/booking.model";
 
 export const checkAvailability = catchAsync(async (req, res) => {
