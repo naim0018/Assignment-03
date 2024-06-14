@@ -27,7 +27,7 @@ const updateFacility=catchAsync(async(req,res)=>{
     sendResponse(res,{
         success:true,
         statusCode:StatusCodes.OK,
-        message:"Facility update successfully",
+        message:"Facility updated successfully",
         data:result
     })
 })

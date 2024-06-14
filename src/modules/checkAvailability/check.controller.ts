@@ -35,10 +35,6 @@ export const checkAvailability = catchAsync(async (req, res) => {
     })
 });
 
-  console.log(availableSlot);
-
- 
-
   sendResponse(res, {
     success: true,
     statusCode: StatusCodes.OK,

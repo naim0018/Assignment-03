@@ -4,7 +4,7 @@ import { sendResponse } from "../../app/utils/sendResponse";
 import { BookingService } from "./booking.service";
 import { FacilityModel } from "../facility/facility.model";
 import { AppError } from "../../app/errors/AppError";
-import { TBooking } from "./booking.interface";
+
 
 
 
@@ -29,27 +29,29 @@ const createBooking = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: "Bookings created successfully",
+    message: "Booking created successfully",
     data: result,
   });
 }); 
 //get all booking controller
 const getAllBooking = catchAsync(async (req, res) => {
   const result = await BookingService.getAllBookingData();
+  const isEmptyResult = !result || Object.keys(result).length === 0;
   sendResponse(res, {
-    statusCode: StatusCodes.OK,
+    statusCode: isEmptyResult ? StatusCodes.NOT_FOUND : StatusCodes.OK ,
     success: true,
-    message: "Bookings retrieved successfully",
+    message:isEmptyResult ? "No data found" :"Bookings retrieved successfully",
     data: result,
   });
 });
 //get booking by user controller
 const getBookingByUser = catchAsync(async (req, res) => {
   const result = await BookingService.getBookingDataByUser(req.user.id);
+  const isEmptyResult = !result || Object.keys(result).length === 0;
   sendResponse(res, {
-    statusCode: StatusCodes.OK,
+    statusCode: isEmptyResult ? StatusCodes.NOT_FOUND : StatusCodes.OK ,
     success: true,
-    message: "Bookings retrieved successfully",
+    message: isEmptyResult ? "No data found":"Bookings retrieved successfully",
     data: result,
   });
 });

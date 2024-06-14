@@ -18,7 +18,7 @@ const userLoginData=async (payload:TUser)=>{
     if(!isUserExist){
         throw new AppError(StatusCodes.NOT_FOUND,"User not found")
     }
-    console.log(isUserExist.password , "&" , payload.password)
+    
      const isPasswordMatched =await bcrypt.compare(payload.password,isUserExist.password)
      if(!isPasswordMatched){
         throw new AppError(StatusCodes.FORBIDDEN,"Password does not match")

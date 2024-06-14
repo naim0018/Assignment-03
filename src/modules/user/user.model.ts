@@ -31,8 +31,6 @@ const userSchema = new Schema<TUser,UserModelData>({
         type:String,
         required:[true,"Address is required"]
     }
-},{
-    timestamps:true
 })
 
 //static function

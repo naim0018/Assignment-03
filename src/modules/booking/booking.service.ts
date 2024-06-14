@@ -5,14 +5,14 @@ import { BookingModel } from "./booking.model";
 
 //get all booking data service
 const getAllBookingData = async () => {
-  const result = await BookingModel.find();
+  const result = await BookingModel.find().populate("facility").populate("user");
+ 
   return result;
 };
 // get booking data by user service
 const getBookingDataByUser = async (id: string) => {
-  console.log(id);
+  
   const result = await BookingModel.findOne({ user: id }).populate("facility");
-  console.log("result", result);
   return result;
 };
 //create booking data service

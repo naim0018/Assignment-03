@@ -1,3 +1,5 @@
+import { StatusCodes } from "http-status-codes"
+import { AppError } from "../../app/errors/AppError"
 import { TFacility } from "./facility.interface"
 import { FacilityModel } from "./facility.model"
 
@@ -10,7 +12,14 @@ const createFacilityData = async(payload:TFacility)=>{
     return result 
 }
 const updateFacilityData = async(id:string,payload:TFacility)=>{
+
+    const isFacilityExist = await FacilityModel.findOne({_id:id})
+    if(!isFacilityExist){
+        throw new AppError(StatusCodes.NOT_FOUND,"Facility not found")
+    }
+
     const result = await FacilityModel.findOneAndUpdate({_id:id},payload,{new:true})
+  
     return result 
 }
 const deleteFacilityData = async(id:string)=>{
