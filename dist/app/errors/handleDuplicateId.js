@@ -7,7 +7,7 @@ const handleDuplicateId = (error) => {
     const errorSources = [
         {
             path: "",
-            message: `${extractedValue} is already exist`
+            message: extractedValue
         }
     ];
     return {
