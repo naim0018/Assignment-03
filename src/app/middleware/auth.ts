@@ -8,8 +8,14 @@ import { TUserRole } from "../../modules/auth/auth.interface";
 
 const auth = (...role:TUserRole[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const token = req.headers.authorization;
+    let token 
     
+    if(
+      req.headers.authorization && req.headers.authorization.startsWith('Bearer')
+    ){
+      token = req.headers.authorization.split(' ')[1]
+    } 
+ 
     //Checking Token
     if (!token) {
       throw new AppError(
