@@ -9,14 +9,17 @@ const createBookingData = async (payload: TBooking) => {
   const { date, startTime, endTime } = payload;
 
   const existingTime = await BookingModel.find({date}).select(
-    "date startTime endTime"
+    "date startTime endTime isBooked" 
   );
+
+  const bookingTime = existingTime.filter(booking=> booking.isBooked !=='canceled')
+  
   const newTime = {
     date,
     startTime,
     endTime,
   };
-  existingTime.forEach((time)=>{
+  bookingTime.forEach((time)=>{
     const existingStartTime = new Date(`1970-01-01T${time.startTime}`)
     const existingEndTime = new Date(`1970-01-01T${time.endTime}`)
     const newStartTime = new Date(`1970-01-01T${newTime.startTime}`)
@@ -40,7 +43,7 @@ const getAllBookingData = async () => {
 };
 // get booking data by user service
 const getBookingDataByUser = async (id: string) => {
-  const result = await BookingModel.findOne({ user: id }).populate("facility");
+  const result = await BookingModel.find({ user: id }).populate("facility");
   return result;
 };
 //cancel booking data by id service

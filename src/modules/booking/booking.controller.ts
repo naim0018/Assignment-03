@@ -16,7 +16,7 @@ const createBooking = catchAsync(async (req, res) => {
 //   calculating time 
   const start = new Date(`1970-01-01T${booking.startTime}:00`);
   const end = new Date(`1970-01-01T${booking.endTime}:00`);
-  console.log(start,end)
+  
   const duration = (end.getTime() - start.getTime()) / (1000 * 60 * 60);
   if (duration <= 0) {
     throw new AppError(StatusCodes.BAD_REQUEST, "Invalid time");
@@ -47,6 +47,7 @@ const getAllBooking = catchAsync(async (req, res) => {
 });
 //get booking by user controller
 const getBookingByUser = catchAsync(async (req, res) => {
+ 
   const result = await BookingService.getBookingDataByUser(req.user.id);
   const isEmptyResult = !result || Object.keys(result).length === 0;
   sendResponse(res, {

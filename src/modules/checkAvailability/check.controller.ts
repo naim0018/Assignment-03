@@ -12,6 +12,8 @@ export const checkAvailability = catchAsync(async (req, res) => {
     `${new Date().getFullYear()}-${
       new Date().getMonth() + 1
     }-${new Date().getDate()}`;
+
+   
   //creating empty time slot
   const timeSlot = [];
   const startHour = 0;
@@ -25,11 +27,12 @@ export const checkAvailability = catchAsync(async (req, res) => {
   }
   //fetching booking slot
   const bookedSlot = await BookingModel.find({ date }).select(
-    "date startTime endTime"
+    "date startTime endTime isBooked"
   );
+  const canceledBooking = bookedSlot.filter(booking=>booking.isBooked !=='canceled')
 
   const availableSlot = timeSlot.filter((slot) =>{
-     return !bookedSlot.find((booked) => {
+     return !canceledBooking.find((booked) => {
       return (slot.startTime >= booked.startTime && slot.startTime < booked.endTime) ||
         (slot.endTime > booked.startTime && slot.endTime <= booked.endTime);
     })
