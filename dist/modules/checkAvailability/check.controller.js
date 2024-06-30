@@ -17,7 +17,7 @@ const booking_model_1 = require("../booking/booking.model");
 exports.checkAvailability = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     //setting date variable
     const date = req.query.date ||
-        `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`;
+        `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, "0")}-${String(new Date().getDate()).padStart(2, "0")}`;
     //creating empty time slot
     const timeSlot = [];
     const startHour = 0;
@@ -31,11 +31,12 @@ exports.checkAvailability = (0, catchAsync_1.catchAsync)((req, res) => __awaiter
     }
     //fetching booking slot
     const bookedSlot = yield booking_model_1.BookingModel.find({ date }).select("date startTime endTime isBooked");
-    const canceledBooking = bookedSlot.filter(booking => booking.isBooked !== 'canceled');
+    const canceledBooking = bookedSlot.filter((booking) => booking.isBooked !== "canceled");
     const availableSlot = timeSlot.filter((slot) => {
         return !canceledBooking.find((booked) => {
-            return (slot.startTime >= booked.startTime && slot.startTime < booked.endTime) ||
-                (slot.endTime > booked.startTime && slot.endTime <= booked.endTime);
+            return ((slot.startTime >= booked.startTime &&
+                slot.startTime < booked.endTime) ||
+                (slot.endTime > booked.startTime && slot.endTime <= booked.endTime));
         });
     });
     (0, sendResponse_1.sendResponse)(res, {
