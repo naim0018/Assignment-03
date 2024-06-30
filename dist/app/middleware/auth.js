@@ -19,7 +19,10 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = __importDefault(require("../config"));
 const auth = (...role) => {
     return (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-        const token = req.headers.authorization;
+        let token;
+        if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+            token = req.headers.authorization.split(' ')[1];
+        }
         //Checking Token
         if (!token) {
             throw new AppError_1.AppError(http_status_codes_1.StatusCodes.UNAUTHORIZED, "You are not authorized user!");
