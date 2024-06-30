@@ -24,7 +24,6 @@ const createBooking = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 
     //   calculating time 
     const start = new Date(`1970-01-01T${booking.startTime}:00`);
     const end = new Date(`1970-01-01T${booking.endTime}:00`);
-    console.log(start, end);
     const duration = (end.getTime() - start.getTime()) / (1000 * 60 * 60);
     if (duration <= 0) {
         throw new AppError_1.AppError(http_status_codes_1.StatusCodes.BAD_REQUEST, "Invalid time");

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.handleValidationError = void 0;
 const handleValidationError = (error) => {
     const errorSources = Object.values(error.errors).map((value) => {
         return {
@@ -13,3 +14,4 @@ const handleValidationError = (error) => {
         errorSources
     };
 };
+exports.handleValidationError = handleValidationError;

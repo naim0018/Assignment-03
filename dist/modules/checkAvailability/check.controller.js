@@ -30,9 +30,10 @@ exports.checkAvailability = (0, catchAsync_1.catchAsync)((req, res) => __awaiter
         timeSlot.push({ startTime, endTime });
     }
     //fetching booking slot
-    const bookedSlot = yield booking_model_1.BookingModel.find({ date }).select("date startTime endTime");
+    const bookedSlot = yield booking_model_1.BookingModel.find({ date }).select("date startTime endTime isBooked");
+    const canceledBooking = bookedSlot.filter(booking => booking.isBooked !== 'canceled');
     const availableSlot = timeSlot.filter((slot) => {
-        return !bookedSlot.find((booked) => {
+        return !canceledBooking.find((booked) => {
             return (slot.startTime >= booked.startTime && slot.startTime < booked.endTime) ||
                 (slot.endTime > booked.startTime && slot.endTime <= booked.endTime);
         });

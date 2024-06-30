@@ -16,13 +16,14 @@ const booking_model_1 = require("./booking.model");
 //create booking data service
 const createBookingData = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const { date, startTime, endTime } = payload;
-    const existingTime = yield booking_model_1.BookingModel.find({ date }).select("date startTime endTime");
+    const existingTime = yield booking_model_1.BookingModel.find({ date }).select("date startTime endTime isBooked");
+    const bookingTime = existingTime.filter(booking => booking.isBooked !== 'canceled');
     const newTime = {
         date,
         startTime,
         endTime,
     };
-    existingTime.forEach((time) => {
+    bookingTime.forEach((time) => {
         const existingStartTime = new Date(`1970-01-01T${time.startTime}`);
         const existingEndTime = new Date(`1970-01-01T${time.endTime}`);
         const newStartTime = new Date(`1970-01-01T${newTime.startTime}`);
@@ -41,7 +42,7 @@ const getAllBookingData = () => __awaiter(void 0, void 0, void 0, function* () {
 });
 // get booking data by user service
 const getBookingDataByUser = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield booking_model_1.BookingModel.findOne({ user: id }).populate("facility");
+    const result = yield booking_model_1.BookingModel.find({ user: id }).populate("facility");
     return result;
 });
 //cancel booking data by id service
